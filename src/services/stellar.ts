@@ -1,6 +1,4 @@
-const sdk = window.StellarSdk;
-
-const { Keypair, Server } = sdk;
+import { Keypair, Server } from "stellar-sdk";
 
 const server = new Server("https://horizon-testnet.stellar.org");
 
