@@ -1,5 +1,7 @@
 <script lang="ts">
   import LogInWallet from "./LogInWallet.svelte";
+  import Account from "./Account.svelte";
+
   import type { IKeypair, IAccount } from "../services/stellar";
   import { generateKeypair, getAccount, fundAccount } from "../services/stellar";
 
@@ -33,7 +35,7 @@
       <p>{balance.asset} - {balance.balance}</p>
     {/each}
   {/if} -->
-  <LogInWallet />
+  <Account />
 </div>
 
 <style>
