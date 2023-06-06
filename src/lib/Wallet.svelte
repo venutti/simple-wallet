@@ -1,4 +1,5 @@
 <script lang="ts">
+  import LogInWallet from "./LogInWallet.svelte";
   import type { IKeypair, IAccount } from "../services/stellar";
   import { generateKeypair, getAccount, fundAccount } from "../services/stellar";
 
@@ -18,7 +19,7 @@
 </script>
 
 <div>
-  {#if !userKeypair && !userAccount}
+  <!-- {#if !userKeypair && !userAccount}
     <button on:click={loadKeypair}>Crear cuenta</button>
   {:else if userKeypair && !userAccount}
     <p>Tu PublicKey es: {userKeypair.publicKey}</p>
@@ -31,7 +32,8 @@
     {#each userAccount.balance as balance}
       <p>{balance.asset} - {balance.balance}</p>
     {/each}
-  {/if}
+  {/if} -->
+  <LogInWallet />
 </div>
 
 <style>
