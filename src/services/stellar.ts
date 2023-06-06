@@ -1,56 +1,28 @@
 import { Keypair, Server } from "stellar-sdk";
+import type { IKeypair, IAccount } from "./interfaces";
+
+import { mapStellarAccount, mapStellarKeypair } from "./utils";
 
 const server = new Server("https://horizon-testnet.stellar.org");
 
-export interface IKeypair {
-  publicKey: string;
-  secretKey: string;
-}
-
-interface Balance {
-  balance: string;
-  asset: string;
-}
-
-export interface IAccount {
-  id: string;
-  balance: Array<Balance>;
-}
-
-export function generateKeypair(): IKeypair {
+export function generateRandomKeypair(): IKeypair {
   const keypair = Keypair.random();
-  const publicKey = keypair.publicKey();
-  const secretKey = keypair.secret();
-
-  return {
-    publicKey,
-    secretKey,
-  };
+  return mapStellarKeypair(keypair);
 }
 
-export async function getAccount(publicKey: string): Promise<IAccount> {
-  const account = await server.loadAccount(publicKey);
-  const id = account.id as string;
-  const balance = account.balances.map((b) => {
-    return {
-      balance: b.balance,
-      asset: b.asset,
-    };
-  });
-  return {
-    id,
-    balance,
-  };
+export async function fundAccountWithFriendbot(
+  accountPublicKey: string
+): Promise<void> {
+  await server.friendbot(accountPublicKey).call();
 }
 
-export async function fundAccount(publicKey: string) {
-  try {
-    const response = await fetch(
-      `https://friendbot.stellar.org?addr=${encodeURIComponent(publicKey)}`
-    );
-    const responseJSON = await response.json();
-    console.log("SUCCESS! You have a new account :)\n", responseJSON);
-  } catch (e) {
-    console.error("ERROR!", e);
-  }
+export async function createAccount(): Promise<IAccount> {
+  const keypair = generateRandomKeypair();
+  await fundAccountWithFriendbot(keypair.publicKey);
+  return getAccount(keypair);
+}
+
+export async function getAccount(keypair: IKeypair): Promise<IAccount> {
+  const account = await server.loadAccount(keypair.publicKey);
+  return mapStellarAccount(account, keypair);
 }
