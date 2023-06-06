@@ -1,3 +1,17 @@
+<script lang="ts">
+  import SendXMLModal from "./SendXMLModal.svelte";
+
+  let open: boolean = false;
+
+  function openModal() {
+    open = true;
+  }
+
+  function closeModal() {
+    open = false;
+  }
+</script>
+
 <div>
   <div class="sign-out">
     <button>Sign out</button>
@@ -15,9 +29,11 @@
     </div>
 
     <div class="actions">
-      <button>Send</button>
+      <button on:click={openModal}>Send</button>
     </div>
   </div>
+
+  <SendXMLModal {open} onClose={closeModal} />
 </div>
 
 <style>
