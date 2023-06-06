@@ -1,24 +1,24 @@
 <script lang="ts">
-  import type { IKeypair, IAccount } from "../services/stellar";
-  import { generateKeypair, getAccount, fundAccount } from "../services/stellar";
+  // import type { IKeypair, IAccount } from "../services/stellar";
+  // import { generateKeypair, getAccount, fundAccount } from "../services/stellar";
 
-  let userKeypair: IKeypair;
-  let userAccount: IAccount;
+  // let userKeypair: IKeypair;
+  // let userAccount: IAccount;
 
-  function loadKeypair() {
-    userKeypair = generateKeypair();
-  }
+  // function loadKeypair() {
+  //   userKeypair = generateKeypair();
+  // }
 
-  function loadAccount(publicId: string) {
-    getAccount(publicId).then(account => {
-      userAccount = account;
-    })
-  }
+  // function loadAccount(publicId: string) {
+  //   getAccount(publicId).then(account => {
+  //     userAccount = account;
+  //   })
+  // }
 
 </script>
 
 <div>
-  {#if !userKeypair && !userAccount}
+  <!-- {#if !userKeypair && !userAccount}
     <button on:click={loadKeypair}>Crear cuenta</button>
   {:else if userKeypair && !userAccount}
     <p>Tu PublicKey es: {userKeypair.publicKey}</p>
@@ -31,7 +31,7 @@
     {#each userAccount.balance as balance}
       <p>{balance.asset} - {balance.balance}</p>
     {/each}
-  {/if}
+  {/if} -->
 </div>
 
 <style>
