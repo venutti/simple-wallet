@@ -43,13 +43,14 @@
     place-items: center;
     gap: 1rem;
   }
+
   h1 {
     text-align: center;
     margin: 2rem;
   }
+
   .account .balance {
     font-size: 2rem;
     margin: 0.5rem;
   }
-
 </style>
