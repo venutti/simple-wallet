@@ -1,4 +1,4 @@
-import type { IKeypair, IAccount } from "./interfaces";
+import type { IKeypair, IAccount } from "./stellarInterfaces";
 import type { AccountResponse, Keypair } from "stellar-sdk";
 
 export function mapStellarAccount(
