@@ -1,5 +1,3 @@
-
-
 <div class="login-wallet">
   <h1>Welcome to you Stellar Wallet</h1>
 
@@ -31,6 +29,7 @@
     place-items: center;
     gap: 1rem;
   }
+
   label span {
     display: block;
   }

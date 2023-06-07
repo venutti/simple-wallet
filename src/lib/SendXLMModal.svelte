@@ -3,7 +3,8 @@
   export let onClose: () => void;
 
   function handleKeyup(event: KeyboardEvent) {
-    if (event.key === "Escape") {
+    const ESCAPE_KEY = "Escape";
+    if (event.key === ESCAPE_KEY) {
       onClose();
     }
   }
@@ -17,7 +18,7 @@
 {#if open}
   <div class="overlay" on:click={onClose} on:keyup={handleKeyup}>
     <div class="modal" on:click={handleModalClick} on:keyup={handleKeyup}>
-      <h1>Send XML</h1>
+      <h1>Send XLM</h1>
 
       <input type="text" placeholder="Amount" />
       <input type="text" placeholder="Destination" />

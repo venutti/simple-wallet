@@ -1,14 +1,10 @@
 <script lang="ts">
-  import SendXMLModal from "./SendXMLModal.svelte";
+  import SendXLMModal from "./SendXLMModal.svelte";
 
-  let open: boolean = false;
+  let isModalOpen: boolean = false;
 
-  function openModal() {
-    open = true;
-  }
-
-  function closeModal() {
-    open = false;
+  function handleModal() {
+    isModalOpen = !isModalOpen;
   }
 </script>
 
@@ -20,7 +16,7 @@
   <div class="account">
     <h1>Your Balance</h1>
     <p class="balance">
-      10000 Lumens (XML)
+      10000 Lumens (XLM)
     </p>
 
     <div class="public-key">
@@ -29,11 +25,11 @@
     </div>
 
     <div class="actions">
-      <button on:click={openModal}>Send</button>
+      <button on:click={handleModal}>Send</button>
     </div>
   </div>
 
-  <SendXMLModal {open} onClose={closeModal} />
+  <SendXLMModal open={isModalOpen} onClose={handleModal} />
 </div>
 
 <style>
@@ -47,13 +43,14 @@
     place-items: center;
     gap: 1rem;
   }
+
   h1 {
     text-align: center;
     margin: 2rem;
   }
+
   .account .balance {
     font-size: 2rem;
     margin: 0.5rem;
   }
-
 </style>
