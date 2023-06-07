@@ -3,7 +3,8 @@
   export let onClose: () => void;
 
   function handleKeyup(event: KeyboardEvent) {
-    if (event.key === "Escape") {
+    const ESCAPE_KEY = "Escape";
+    if (event.key === ESCAPE_KEY) {
       onClose();
     }
   }
