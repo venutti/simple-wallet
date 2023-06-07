@@ -1,5 +1,5 @@
 <script lang="ts">
-  import Account from "./Account.svelte";
+  import Account from "../Account/Account.svelte";
 </script>
 
 <div>
