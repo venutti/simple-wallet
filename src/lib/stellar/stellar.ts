@@ -3,7 +3,7 @@ import type { IKeypair, IAccount } from "./stellarInterfaces";
 
 import { mapStellarAccount, mapStellarKeypair } from "./stellarHelpers";
 
-const server = new Server("https://horizon-testnet.stellar.org");
+const server = new Server(import.meta.env.VITE_STELLAR_NETWORK);
 
 export function generateRandomKeypair(): IKeypair {
   const keypair = Keypair.random();
