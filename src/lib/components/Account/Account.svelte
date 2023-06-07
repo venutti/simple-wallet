@@ -1,14 +1,10 @@
 <script lang="ts">
   import SendXLMModal from "../SendXLMModal/SendXLMModal.svelte";
 
-  let open: boolean = false;
+  let isModalOpen: boolean = false;
 
-  function openModal() {
-    open = true;
-  }
-
-  function closeModal() {
-    open = false;
+  function handleModal() {
+    isModalOpen = !isModalOpen;
   }
 </script>
 
@@ -29,11 +25,11 @@
     </div>
 
     <div class="actions">
-      <button on:click={openModal}>Send</button>
+      <button on:click={handleModal}>Send</button>
     </div>
   </div>
 
-  <SendXLMModal {open} onClose={closeModal} />
+  <SendXLMModal open={isModalOpen} onClose={handleModal} />
 </div>
 
 <style>
