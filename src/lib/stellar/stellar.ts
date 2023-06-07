@@ -1,7 +1,7 @@
 import { Keypair, Server } from "stellar-sdk";
 import type { IKeypair, IAccount } from "./interfaces";
 
-import { mapStellarAccount, mapStellarKeypair } from "../lib/utils/utils";
+import { mapStellarAccount, mapStellarKeypair } from "./utils";
 
 const server = new Server("https://horizon-testnet.stellar.org");
 
