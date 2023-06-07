@@ -1,7 +1,7 @@
 <script lang="ts">
   import { Router, Link, Route } from "svelte-navigator";
-  import Account from "./lib/components/Account/Account.svelte"
-  import LogInWallet from "./lib/components/LogInWallet/LogInWallet.svelte";
+  import Account from "./routes/Account/Account.svelte"
+  import LogInWallet from "./routes/LogInWallet/LogInWallet.svelte";
 </script>
 
 <main>

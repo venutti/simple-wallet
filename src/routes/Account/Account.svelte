@@ -1,5 +1,5 @@
 <script lang="ts">
-  import SendXLMModal from "../SendXLMModal/SendXLMModal.svelte";
+  import SendXLMModal from "../../lib/components/SendXLMModal/SendXLMModal.svelte";
 
   let isModalOpen: boolean = false;
 
