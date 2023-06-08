@@ -33,7 +33,7 @@ export async function sendToAccount(
   senderSecretKey: string,
   receiverPublicKey: string
 ) {
-  const MAX_SECONDS_AWAIT = 60 * 5;
+  const MAX_SECONDS_AWAIT = 60;
 
   const senderKeypair = Keypair.fromSecret(senderSecretKey);
   const receiverKeypair = Keypair.fromPublicKey(receiverPublicKey);
