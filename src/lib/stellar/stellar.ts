@@ -33,7 +33,7 @@ export async function sendToAccount(
   senderSecretKey: string,
   receiverPublicKey: string
 ) {
-  const MAX_SECONDS_AWAIT = 60;
+  const MAX_LIMIT = 60;
 
   const senderKeypair = Keypair.fromSecret(senderSecretKey);
   const receiverKeypair = Keypair.fromPublicKey(receiverPublicKey);
@@ -50,7 +50,7 @@ export async function sendToAccount(
         destination: receiverKeypair.publicKey(),
       })
     )
-    .setTimeout(MAX_SECONDS_AWAIT)
+    .setTimeout(MAX_LIMIT)
     .build();
 
   transaction.sign(senderKeypair);
