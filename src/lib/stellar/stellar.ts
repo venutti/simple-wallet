@@ -9,8 +9,7 @@ import {
 const server = new Server(import.meta.env.VITE_STELLAR_NETWORK);
 
 export function generateRandomKeypair(): Keypair {
-  const keypair = Keypair.random();
-  return keypair;
+  return Keypair.random();
 }
 
 export async function fundAccountWithFriendbot(
