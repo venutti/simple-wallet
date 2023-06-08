@@ -16,8 +16,10 @@ export async function fundAccountWithFriendbot(
 
 export async function createAccount() {
   const keypair = generateRandomKeypair();
-  return getAccount(keypair);
   await fundAccountWithFriendbot(keypair.publicKey());
+  return keypair;
+}
+
 export async function getAccount(accountPublicKey: string) {
   const account = await server.loadAccount(accountPublicKey);
   return account;
