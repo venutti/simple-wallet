@@ -1,13 +1,11 @@
 import { Keypair, Server } from "stellar-sdk";
-import type { IKeypair, IAccount } from "./stellarInterfaces";
 
-import { mapStellarAccount, mapStellarKeypair } from "./stellarHelpers";
 
 const server = new Server(import.meta.env.VITE_STELLAR_NETWORK);
 
-export function generateRandomKeypair(): IKeypair {
+export function generateRandomKeypair(): Keypair {
   const keypair = Keypair.random();
-  return mapStellarKeypair(keypair);
+  return keypair;
 }
 
 export async function fundAccountWithFriendbot(
@@ -16,13 +14,13 @@ export async function fundAccountWithFriendbot(
   await server.friendbot(accountPublicKey).call();
 }
 
-export async function createAccount(): Promise<IAccount> {
+export async function createAccount() {
   const keypair = generateRandomKeypair();
-  await fundAccountWithFriendbot(keypair.publicKey);
   return getAccount(keypair);
+  await fundAccountWithFriendbot(keypair.publicKey());
+export async function getAccount(accountPublicKey: string) {
+  const account = await server.loadAccount(accountPublicKey);
+  return account;
 }
 
-export async function getAccount(keypair: IKeypair): Promise<IAccount> {
-  const account = await server.loadAccount(keypair.publicKey);
-  return mapStellarAccount(account, keypair);
 }
