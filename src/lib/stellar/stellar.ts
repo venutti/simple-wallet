@@ -40,12 +40,12 @@ export async function sendToAccount(
 
   const senderAccount = await getAccount(senderKeypair.publicKey());
   const transaction = new TransactionBuilder(senderAccount, {
-    fee: `${await server.fetchBaseFee()}`,
+    fee: (await server.fetchBaseFee()).toString(),
     networkPassphrase: import.meta.env.VITE_STELLAR_NETWORK_PASSPHRASE,
   })
     .addOperation(
       Operation.payment({
-        amount: `${amount}`,
+        amount: amount.toString(),
         asset: Asset.native(),
         destination: receiverKeypair.publicKey(),
       })
@@ -55,6 +55,5 @@ export async function sendToAccount(
 
   transaction.sign(senderKeypair);
 
-  const response = await server.submitTransaction(transaction);
-  return response;
+  return await server.submitTransaction(transaction);
 }
