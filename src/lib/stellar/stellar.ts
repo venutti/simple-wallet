@@ -1,5 +1,10 @@
-import { Keypair, Server } from "stellar-sdk";
-
+import {
+  Keypair,
+  Server,
+  TransactionBuilder,
+  Operation,
+  Asset,
+} from "stellar-sdk";
 
 const server = new Server(import.meta.env.VITE_STELLAR_NETWORK);
 
@@ -25,4 +30,33 @@ export async function getAccount(accountPublicKey: string) {
   return account;
 }
 
+export async function sendToAccount(
+  amount: number,
+  senderSecretKey: string,
+  receiverPublicKey: string
+) {
+  const MAX_SECONDS_AWAIT = 60 * 5;
+
+  const senderKeypair = Keypair.fromSecret(senderSecretKey);
+  const receiverKeypair = Keypair.fromPublicKey(receiverPublicKey);
+
+  const senderAccount = await getAccount(senderKeypair.publicKey());
+  const transaction = new TransactionBuilder(senderAccount, {
+    fee: `${await server.fetchBaseFee()}`,
+    networkPassphrase: import.meta.env.VITE_STELLAR_NETWORK_PASSPHRASE,
+  })
+    .addOperation(
+      Operation.payment({
+        amount: `${amount}`,
+        asset: Asset.native(),
+        destination: receiverKeypair.publicKey(),
+      })
+    )
+    .setTimeout(MAX_SECONDS_AWAIT)
+    .build();
+
+  transaction.sign(senderKeypair);
+
+  const response = await server.submitTransaction(transaction);
+  return response;
 }
