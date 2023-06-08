@@ -26,8 +26,7 @@ export async function createAccount() {
 }
 
 export async function getAccount(accountPublicKey: string) {
-  const account = await server.loadAccount(accountPublicKey);
-  return account;
+  return await server.loadAccount(accountPublicKey);
 }
 
 export async function sendToAccount(
