@@ -1,16 +1,34 @@
 <script lang="ts">
   import SendXLMModal from "../../lib/components/SendXLMModal/SendXLMModal.svelte";
+  import { useNavigate } from "svelte-navigator";
+  import { keypair } from "../../lib/store/global";
+  import { notifySuccess } from "../../lib/utils/notification";
+  const navigate = useNavigate();
 
   let isModalOpen: boolean = false;
+
+  function handleSignOut() {
+    $keypair = null;
+    navigate("/");
+    notifySuccess("Logged out correctly");
+  }
+
+  function handleSignIn() {
+    navigate("/");
+  }
 
   function handleModal() {
     isModalOpen = !isModalOpen;
   }
 </script>
 
-<div>
+{#if !$keypair}
+  <div class="sign-in">
+    <button on:click={handleSignIn}>Sign in</button>
+  </div>
+{:else}
   <div class="sign-out">
-    <button>Sign out</button>
+    <button on:click={handleSignOut}>Sign out</button>
   </div>
 
   <div class="account">
