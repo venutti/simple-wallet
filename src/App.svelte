@@ -1,10 +1,12 @@
 <script lang="ts">
   import { Router, Link, Route } from "svelte-navigator";
+  import { SvelteToast } from '@zerodevx/svelte-toast'
   import Account from "./routes/Account/Account.svelte"
   import LogInWallet from "./routes/LogInWallet/LogInWallet.svelte";
 </script>
 
 <main>
+  <SvelteToast />
   <Router>
     <nav class="nav">
       <Link class="link" to="/">Log In</Link>
