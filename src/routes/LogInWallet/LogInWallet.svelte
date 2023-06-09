@@ -1,3 +1,4 @@
+  let secretKey = "";
 <div class="login-wallet">
   <h1>Welcome to you Stellar Wallet</h1>
 
@@ -8,6 +9,7 @@
     <div>
       <input type="text" placeholder="Secret key" />
       <button>Import</button>
+      <input bind:value={secretKey} type="text" placeholder="Secret key" />
     </div>
   </label>
 </div>
