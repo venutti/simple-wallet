@@ -7,7 +7,7 @@
 
 <main>
   <SvelteToast />
-  <Router>
+  <Router primary={false}>
     <nav class="nav">
       <Link class="link" to="/">Log In</Link>
       <Link class="link" to="/account">Account</Link>
