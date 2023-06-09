@@ -2,6 +2,9 @@
   export let open: boolean;
   export let onClose: () => void;
 
+  let receiverPublicKey: string;
+  let amount: string;
+
   function handleKeyup(event: KeyboardEvent) {
     const ESCAPE_KEY = "Escape";
     if (event.key === ESCAPE_KEY) {
@@ -20,8 +23,8 @@
     <div class="modal" on:click={handleModalClick} on:keyup={handleKeyup}>
       <h1>Send XLM</h1>
 
-      <input type="text" placeholder="Amount" />
-      <input type="text" placeholder="Destination" />
+      <input bind:value={amount} type="text" placeholder="Amount" />
+      <input bind:value={receiverPublicKey} type="text" placeholder="Destination" />
 
       <button>Send</button>
     </div>
