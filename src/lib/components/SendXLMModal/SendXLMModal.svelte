@@ -1,4 +1,8 @@
 <script lang="ts">
+  import { sendToAccount } from "../../stellar/stellar";
+  import { keypair } from "../../store/global";
+  import { notifySuccess, notifyError } from "../../utils/notification";
+
   export let open: boolean;
   export let onClose: () => void;
 
@@ -16,6 +20,17 @@
     event.stopPropagation();
     return;
   }
+
+  async function handleSend() {
+    try {
+      const result = await sendToAccount(Number(amount), $keypair.secret(), receiverPublicKey);
+      notifySuccess(`Successfully sent ${amount} XLM to ${receiverPublicKey}`);
+      onClose();
+    } catch (error) {
+      notifyError(error.message);
+      console.error(error);
+    }
+  }
 </script>
 
 {#if open}
@@ -26,7 +41,7 @@
       <input bind:value={amount} type="text" placeholder="Amount" />
       <input bind:value={receiverPublicKey} type="text" placeholder="Destination" />
 
-      <button>Send</button>
+      <button on:click={handleSend}>Send</button>
     </div>
   </div>
 {/if}
