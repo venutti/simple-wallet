@@ -34,7 +34,7 @@
 </script>
 
 <div class="login-wallet">
-  <h1>Welcome to you Stellar Wallet</h1>
+  <h1>Welcome to your Stellar Wallet</h1>
 
   <button on:click={handleCreateAccount}>Create account</button>
 
