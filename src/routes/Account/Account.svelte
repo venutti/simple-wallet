@@ -1,8 +1,11 @@
 <script lang="ts">
   import SendXLMModal from "../../lib/components/SendXLMModal/SendXLMModal.svelte";
+  import { getAccount } from "../../lib/stellar/stellar";
   import { useNavigate } from "svelte-navigator";
   import { keypair } from "../../lib/store/global";
   import { notifySuccess } from "../../lib/utils/notification";
+  import { getXLMBalanceFromAccount, getPublicKeyFromAccount } from "../../lib/stellar/stellarHelpers"
+
   const navigate = useNavigate();
 
   let isModalOpen: boolean = false;
@@ -30,28 +33,34 @@
   <div class="sign-out">
     <button on:click={handleSignOut}>Sign out</button>
   </div>
+  {#await getAccount($keypair.publicKey())}
+    <div>Loading...</div>
+  {:then account} 
+    <div class="account">
+      <h1>Your Balance</h1>
+      <p class="balance">
+        {getXLMBalanceFromAccount(account)} Lumens (XLM)
+      </p>
 
-  <div class="account">
-    <h1>Your Balance</h1>
-    <p class="balance">
-      10000 Lumens (XLM)
-    </p>
+      <div class="public-key">
+        <p>Your Stellar public key:</p>
+        <input type="text" disabled value={getPublicKeyFromAccount(account)} />
+      </div>
 
-    <div class="public-key">
-      <p>Your Stellar public key:</p>
-      <input type="text" disabled value="publicKey" />
+      <div class="actions">
+        <button on:click={handleModal}>Send</button>
+      </div>
     </div>
+    <SendXLMModal open={isModalOpen} onClose={handleModal} />
+  {:catch}
+    <div>Something went wrong</div>
+  {/await}
+{/if}
 
-    <div class="actions">
-      <button on:click={handleModal}>Send</button>
-    </div>
-  </div>
-
-  <SendXLMModal open={isModalOpen} onClose={handleModal} />
-</div>
 
 <style>
-  .sign-out {
+  .sign-out,
+  .sign-in {
     display: flex;
     justify-content: end;
   }
