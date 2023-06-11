@@ -13,12 +13,8 @@
       <Link class="link" to="/account">Account</Link>
     </nav>
     <div>
-      <Route path="/">
-        <LogInWallet />
-      </Route>
-      <Route path="/account">
-        <Account />
-      </Route>
+      <Route path="/" component={LogInWallet} />
+      <Route path="/account" component={Account} />
     </div>
   </Router>
 
