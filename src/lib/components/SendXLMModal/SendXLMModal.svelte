@@ -21,7 +21,7 @@
     return;
   }
 
-  async function handleSend() {
+  async function handleSendButton() {
     try {
       const result = await sendToAccount(Number(amount), $keypair.secret(), receiverPublicKey);
       notifySuccess(`Successfully sent ${amount} XLM to ${receiverPublicKey}`);
@@ -41,7 +41,7 @@
       <input bind:value={amount} type="text" placeholder="Amount" />
       <input bind:value={receiverPublicKey} type="text" placeholder="Destination" />
 
-      <button on:click={handleSend}>Send</button>
+      <button on:click={handleSendButton}>Send</button>
     </div>
   </div>
 {/if}
