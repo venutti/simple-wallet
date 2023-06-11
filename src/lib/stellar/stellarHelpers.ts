@@ -1,9 +1,9 @@
 import type { AccountResponse } from "stellar-sdk";
 
 export function getXLMBalanceFromAccount(account: AccountResponse) {
-  const NATIVE_ASSET_TYPE = "native";
+  const ASSET_TYPE_NATIVE = "native";
   return account.balances.find(
-    (balance) => balance.asset_type === NATIVE_ASSET_TYPE
+    (balance) => balance.asset_type === ASSET_TYPE_NATIVE
   ).balance;
 }
 
