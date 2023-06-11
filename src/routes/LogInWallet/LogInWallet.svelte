@@ -15,7 +15,7 @@
       navigate("/account");
       notifySuccess("Account imported successfully");
     } catch (error) {
-      notifyError("Invalid secret key: " + error.message);
+      notifyError(`Invalid secret key: ${error.message}`);
       console.error(error);
     }
   }
@@ -28,7 +28,7 @@
       notifySuccess("Account created successfully");
     } catch (error) {
       console.error(error);
-      notifyError("Failed account creation: " + error.message);
+      notifyError(`Failed account creation: ${error.message}`);
     }
   }
 </script>
