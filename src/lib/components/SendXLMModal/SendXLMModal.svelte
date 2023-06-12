@@ -4,6 +4,7 @@
 
   export let open: boolean;
   export let onClose: () => void;
+  export let onSend: () => void;
 
   let receiverPublicKey: string;
   let amount: string;
@@ -24,6 +25,7 @@
     try {
       await $wallet.pay(amount, receiverPublicKey);
       notifySuccess(`Successfully sent ${amount} XLM to ${receiverPublicKey}`);
+      onSend();
       onClose();
     } catch (error) {
       notifyError(error.message);

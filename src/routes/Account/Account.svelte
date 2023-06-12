@@ -8,6 +8,8 @@
 
   const navigate = useNavigate();
 
+  let toggleAccountLoading = false;
+
   let isModalOpen: boolean = false;
 
   function handleSignOut() {
@@ -33,6 +35,10 @@
   function handleModal() {
     isModalOpen = !isModalOpen;
   }
+
+  function handleSendXLM() {
+    toggleAccountLoading = !toggleAccountLoading;
+  }
 </script>
 
 {#if !$wallet}
@@ -43,28 +49,30 @@
   <div class="sign-out">
     <button on:click={handleSignOut}>Sign out</button>
   </div>
-  {#await handleGetAccount() }
-    <div>Loading...</div>
-  {:then account} 
-    <div class="account">
-      <h1>Your Balance</h1>
-      <p class="balance">
-        {getXLMBalanceFromAccount(account)} Lumens (XLM)
-      </p>
+  {#key toggleAccountLoading}
+    {#await handleGetAccount() }
+      <div>Loading...</div>
+    {:then account} 
+      <div class="account">
+        <h1>Your Balance</h1>
+        <p class="balance">
+          {getXLMBalanceFromAccount(account)} Lumens (XLM)
+        </p>
 
-      <div class="public-key">
-        <p>Your Stellar public key:</p>
-        <input type="text" disabled value={getPublicKeyFromAccount(account)} />
-      </div>
+        <div class="public-key">
+          <p>Your Stellar public key:</p>
+          <input type="text" disabled value={getPublicKeyFromAccount(account)} />
+        </div>
 
-      <div class="actions">
-        <button on:click={handleModal}>Send</button>
+        <div class="actions">
+          <button on:click={handleModal}>Send</button>
+        </div>
       </div>
-    </div>
-    <SendXLMModal open={isModalOpen} onClose={handleModal} />
-  {:catch}
-    <div>Something went wrong</div>
-  {/await}
+      <SendXLMModal open={isModalOpen} onClose={handleModal} onSend={handleSendXLM} />
+    {:catch}
+      <div>Something went wrong</div>
+    {/await}
+  {/key}
 {/if}
 
 
