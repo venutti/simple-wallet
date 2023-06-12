@@ -1,14 +1,25 @@
 import IWallet from "../IWallet";
 import albedo from "@albedo-link/intent";
 
+const NOT_CONNECTED_ERROR = "Not connected";
+
 export default class Albedo implements IWallet {
-  async getPublicKey(): Promise<string> {
+  private PUBLIC_KEY: string = "";
+
+  async init(): Promise<void> {
     try {
-      const requestPubKey = await albedo.publicKey({});
-      return requestPubKey.pubkey;
+      const publicKey = await albedo.publicKey({});
+      this.PUBLIC_KEY = publicKey.pubkey;
     } catch (error) {
       throw error;
     }
+  }
+
+  async getPublicKey(): Promise<string> {
+    if (!this.PUBLIC_KEY) {
+      throw new Error(NOT_CONNECTED_ERROR);
+    }
+    return this.PUBLIC_KEY;
   }
 
   async pay(amount: string, destination: string): Promise<string> {
