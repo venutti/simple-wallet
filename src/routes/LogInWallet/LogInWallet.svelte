@@ -28,7 +28,6 @@
     try {
       const createdKeyWallet = new CreatedKey();
       await createdKeyWallet.init();
-      console.log("createdKeyWallet", createdKeyWallet);
       wallet.set(createdKeyWallet);
       navigate("/account");
       notifySuccess("Account created successfully");

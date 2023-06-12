@@ -22,7 +22,6 @@
 
   async function handleGetAccount() {
     try {
-      console.log("Hey")
       const publicKey = await $wallet.getPublicKey();
       const account = await getAccount(publicKey);
       return account;
