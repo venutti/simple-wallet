@@ -1,6 +1,5 @@
 <script lang="ts">
-  import { sendToAccount } from "../../stellar/stellar";
-  import { keypair } from "../../store/global";
+  import { wallet } from "../../store/global";
   import { notifySuccess, notifyError } from "../../utils/notification";
 
   export let open: boolean;
@@ -23,7 +22,7 @@
 
   async function handleSendButton() {
     try {
-      const result = await sendToAccount(Number(amount), $keypair.secret(), receiverPublicKey);
+      await $wallet.pay(amount, receiverPublicKey);
       notifySuccess(`Successfully sent ${amount} XLM to ${receiverPublicKey}`);
       onClose();
     } catch (error) {

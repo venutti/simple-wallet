@@ -1,17 +1,20 @@
 <script>
   import { useNavigate } from "svelte-navigator";
-  import { importKeypairFromSecret, createAccount } from "../../lib/stellar/stellar"
-  import { keypair } from "../../lib/store/global"
+  import { wallet } from "../../lib/store/global"
   import { notifySuccess, notifyError } from "../../lib/utils/notification"; 
+
+  import PrivateKey from "../../lib/wallets/privateKey/PrivateKey";
+  import CreatedKey from "../../lib/wallets/createdKey/CreatedKey";
 
   const navigate = useNavigate();
 
   let secretKey = "";
 
-  function handleImportAccount() {
+  async function handleImportAccount() {
     try {
-      const importedKeypair = importKeypairFromSecret(secretKey);
-      keypair.set(importedKeypair);
+      const privateKeyWallet = new PrivateKey();
+      await privateKeyWallet.init(secretKey);
+      wallet.set(privateKeyWallet);
       navigate("/account");
       notifySuccess("Account imported successfully");
     } catch (error) {
@@ -22,8 +25,10 @@
 
   async function handleCreateAccount() {
     try {
-      const createdKeypair = await createAccount()
-      keypair.set(createdKeypair);
+      const createdKeyWallet = new CreatedKey();
+      await createdKeyWallet.init();
+      console.log("createdKeyWallet", createdKeyWallet);
+      wallet.set(createdKeyWallet);
       navigate("/account");
       notifySuccess("Account created successfully");
     } catch (error) {

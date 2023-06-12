@@ -2,7 +2,7 @@
   import SendXLMModal from "../../lib/components/SendXLMModal/SendXLMModal.svelte";
   import { getAccount } from "../../lib/stellar/stellar";
   import { useNavigate } from "svelte-navigator";
-  import { keypair } from "../../lib/store/global";
+  import { wallet } from "../../lib/store/global";
   import { notifySuccess } from "../../lib/utils/notification";
   import { getXLMBalanceFromAccount, getPublicKeyFromAccount } from "../../lib/stellar/stellarHelpers"
 
@@ -11,7 +11,7 @@
   let isModalOpen: boolean = false;
 
   function handleSignOut() {
-    $keypair = null;
+    $wallet = null;
     navigate("/");
     notifySuccess("Logged out correctly");
   }
@@ -20,12 +20,23 @@
     navigate("/");
   }
 
+  async function handleGetAccount() {
+    try {
+      console.log("Hey")
+      const publicKey = await $wallet.getPublicKey();
+      const account = await getAccount(publicKey);
+      return account;
+    } catch (error) {
+      throw error;
+    }
+  }
+
   function handleModal() {
     isModalOpen = !isModalOpen;
   }
 </script>
 
-{#if !$keypair}
+{#if !$wallet}
   <div class="sign-in">
     <button on:click={handleSignIn}>Sign in</button>
   </div>
@@ -33,7 +44,7 @@
   <div class="sign-out">
     <button on:click={handleSignOut}>Sign out</button>
   </div>
-  {#await getAccount($keypair.publicKey())}
+  {#await handleGetAccount() }
     <div>Loading...</div>
   {:then account} 
     <div class="account">
