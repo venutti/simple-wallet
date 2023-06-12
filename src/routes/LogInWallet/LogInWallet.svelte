@@ -5,6 +5,7 @@
 
   import PrivateKey from "../../lib/wallets/privateKey/PrivateKey";
   import CreatedKey from "../../lib/wallets/createdKey/CreatedKey";
+  import Albedo from "../../lib/wallets/albedo/Albedo";
 
   const navigate = useNavigate();
 
@@ -36,6 +37,19 @@
       notifyError(`Failed account creation: ${error.message}`);
     }
   }
+
+  async function handleAlbedoSignIn() {
+    try {
+      const albedoWallet = new Albedo();
+      await albedoWallet.init();
+      wallet.set(albedoWallet);
+      navigate("/account");
+      notifySuccess("Account signed in successfully");
+    } catch (error) {
+      console.error(error);
+      notifyError("Failed to sign in");
+    }
+  }
 </script>
 
 <div class="login-wallet">
@@ -50,6 +64,8 @@
       <button on:click={handleImportAccount}>Import</button>
     </div>
   </label>
+
+  <button on:click={handleAlbedoSignIn}>Sign in with Albedo</button>
 </div>
 
 <style>
