@@ -1,6 +1,13 @@
 <script lang="ts">
+  import { wallet } from "../../store/global";
+  import { notifySuccess, notifyError } from "../../utils/notification";
+
   export let open: boolean;
   export let onClose: () => void;
+  export let onSend: () => void;
+
+  let receiverPublicKey: string;
+  let amount: string;
 
   function handleKeyup(event: KeyboardEvent) {
     const ESCAPE_KEY = "Escape";
@@ -13,6 +20,18 @@
     event.stopPropagation();
     return;
   }
+
+  async function handleSendButton() {
+    try {
+      await $wallet.pay(amount, receiverPublicKey);
+      notifySuccess(`Successfully sent ${amount} XLM to ${receiverPublicKey}`);
+      onSend();
+      onClose();
+    } catch (error) {
+      notifyError(error.message);
+      console.error(error);
+    }
+  }
 </script>
 
 {#if open}
@@ -20,10 +39,10 @@
     <div class="modal" on:click={handleModalClick} on:keyup={handleKeyup}>
       <h1>Send XLM</h1>
 
-      <input type="text" placeholder="Amount" />
-      <input type="text" placeholder="Destination" />
+      <input bind:value={amount} type="text" placeholder="Amount" />
+      <input bind:value={receiverPublicKey} type="text" placeholder="Destination" />
 
-      <button>Send</button>
+      <button on:click={handleSendButton}>Send</button>
     </div>
   </div>
 {/if}
