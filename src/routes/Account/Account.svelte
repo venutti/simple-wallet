@@ -25,8 +25,7 @@
   async function handleGetAccount() {
     try {
       const publicKey = await $wallet.getPublicKey();
-      const account = await getAccount(publicKey);
-      return account;
+      return await getAccount(publicKey);
     } catch (error) {
       throw error;
     }
