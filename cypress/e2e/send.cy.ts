@@ -12,7 +12,7 @@ describe("Send", () => {
     cy.get("@importButton").click();
 
     cy.contains("p", "Lumens").then(($balance) => {
-      let initialBalance = parseFloat($balance.text().split(" ")[0]);
+      const initialBalance = parseFloat($balance.text().split(" ")[0]);
       cy.wrap(initialBalance).as("initialBalance");
     });
 
@@ -27,7 +27,7 @@ describe("Send", () => {
     cy.wait(8000);
 
     cy.contains("p", "Lumens").then(($balance) => {
-      let finalBalance = parseFloat($balance.text().split(" ")[0]);
+      const finalBalance = parseFloat($balance.text().split(" ")[0]);
       cy.get("@initialBalance").should("be.greaterThan", finalBalance);
     });
   });
