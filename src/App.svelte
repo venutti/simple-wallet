@@ -7,7 +7,7 @@
 
 <main>
   <SvelteToast />
-  <Router primary={false}>
+  <Router primary={false} basepath="simple-wallet">
     <nav class="nav">
       <Link class="link" to="/">Log In</Link>
       <Link class="link" to="/account">Account</Link>
