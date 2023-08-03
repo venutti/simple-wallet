@@ -9,7 +9,9 @@
     "preview": "vite preview",
     "check": "svelte-check --tsconfig ./tsconfig.json",
     "test": "jest",
-    "test:watch": "npm test -- --watch"
+    "test:watch": "npm test -- --watch",
+    "test:ui:dev": "cypress open",
+    "test:ui:headless": "cypress run"
   },
   "jest": {
     "transform": {
@@ -25,6 +27,8 @@
     "@sveltejs/vite-plugin-svelte": "^2.0.4",
     "@tsconfig/svelte": "^4.0.1",
     "@types/jest": "^29.5.2",
+    "@zerodevx/svelte-toast": "^0.9.3",
+    "cypress": "^12.14.0",
     "jest": "^29.5.0",
     "rollup-plugin-node-polyfills": "^0.2.1",
     "svelte": "^3.58.0",
@@ -35,6 +39,7 @@
     "vite": "^4.3.9"
   },
   "dependencies": {
+    "@albedo-link/intent": "^0.12.0",
     "stellar-sdk": "^10.4.1",
     "svelte-navigator": "^3.2.2"
   }

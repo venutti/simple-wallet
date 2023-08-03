@@ -24,6 +24,10 @@ export async function createAccount() {
   return keypair;
 }
 
+export function importKeypairFromSecret(secret: string) {
+  return Keypair.fromSecret(secret);
+}
+
 export async function getAccount(accountPublicKey: string) {
   return await server.loadAccount(accountPublicKey);
 }
